@@ -3,12 +3,18 @@ dotenv.config();
 
 import express from "express";
 import cors from "cors";
-import cookieParser from "cookie-parser";
+import path from "path";
+import { fileURLToPath } from "url";
 
 import formRoutes from "./routes/form.route.js";
-import responseRoutes from "./routes/response.route.js"; // Import the new responses route
+import responseRoutes from "./routes/response.route.js";
+import uploadRoutes from "./routes/upload.route.js";
 
 const app = express();
+
+// Resolve current directory (needed for static file serving)
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // CORS
 app.use(
@@ -18,22 +24,19 @@ app.use(
   })
 );
 
-// Body parsing
+// Body parsing middleware
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 
-// Cookie parsing
-app.use(cookieParser());
-
-// Static files
 app.use(express.static("public"));
 
-// Routes
+
+// API Routes
 app.use("/api/forms", formRoutes);
-app.use('/api/responses', responseRoutes); // Use the new responses route
+app.use("/api/responses", responseRoutes);
+app.use("/api/upload", uploadRoutes);
 
-
-// Error handling
+// Error handling middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res

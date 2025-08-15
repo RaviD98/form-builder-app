@@ -1,6 +1,3 @@
-# Created by https://www.toptal.com/developers/gitignore/api/react,node
-# Edit at https://www.toptal.com/developers/gitignore?templates=react,node
-
 ### Node ###
 # Logs
 logs
@@ -153,3 +150,4 @@ node_modules
 psd
 thumb
 sketch
+uploads/
