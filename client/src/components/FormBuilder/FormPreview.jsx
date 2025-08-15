@@ -233,8 +233,23 @@ const FormPreview = () => {
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-8">
+          {/* Banner image (optional) */}
+          {formData.headerImage && (
+            <div className="relative w-full overflow-hidden">
+              {/* 3 : 1 banner – change pt-[50%] for 2 : 1 */}
+              <div className="relative pt-[33%]">
+                <img
+                  src={formData.headerImage}
+                  alt="Form header"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Gradient bar with title & buttons */}
           <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-12 text-center relative">
-            {/* Back to Builder Button */}
+            {/* Back button */}
             <button
               onClick={() => navigate("/builder")}
               className="absolute top-4 left-4 bg-white/20 hover:bg-white/30 text-white p-2 rounded-lg transition duration-200 cursor-pointer"
@@ -254,7 +269,7 @@ const FormPreview = () => {
               </svg>
             </button>
 
-            {/* Go to Live Form Button */}
+            {/* Live-form button */}
             <button
               onClick={() => navigate(`/form-fill/${id}`)}
               className="absolute top-4 right-4 bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50 transition duration-200 font-medium cursor-pointer"
@@ -262,6 +277,7 @@ const FormPreview = () => {
               View Live Form
             </button>
 
+            {/* Icon + “Form Preview” */}
             <div className="flex items-center justify-center space-x-3 mb-4">
               <div className="bg-white/20 rounded-lg p-3">
                 <svg
@@ -286,16 +302,8 @@ const FormPreview = () => {
               </div>
               <h1 className="text-4xl font-bold text-white">Form Preview</h1>
             </div>
+
             <p className="text-blue-100 text-lg">{formData.title}</p>
-            {formData.headerImage && (
-              <div className="mt-6 flex justify-center">
-                <img
-                  src={formData.headerImage}
-                  alt="Form header"
-                  className="max-w-md max-h-48 object-cover rounded-lg shadow-lg border-4 border-white/20"
-                />
-              </div>
-            )}
           </div>
         </div>
 

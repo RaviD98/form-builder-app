@@ -1,20 +1,17 @@
 import { useState } from "react";
 
-const ImageUpload = ({ onUpload, currentImage = "" }) => {
-
+const ImageUpload = ({ onUpload, currentImage = "inputId" }) => {
   const [uploading, setUploading] = useState(false);
 
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (!file) return;
 
-    // Validate file type
     if (!file.type.startsWith("image/")) {
       alert("Please select an image file");
       return;
     }
 
-    // Validate file size (e.g., max 5MB)
     if (file.size > 5 * 1024 * 1024) {
       alert("File size must be less than 5MB");
       return;
@@ -35,6 +32,7 @@ const ImageUpload = ({ onUpload, currentImage = "" }) => {
     <div className="image-upload-component">
       <div className="flex flex-col items-center justify-center space-y-4">
         <input
+          id="inputId"
           type="file"
           accept="image/*"
           onChange={handleFileChange}
@@ -74,16 +72,15 @@ const ImageUpload = ({ onUpload, currentImage = "" }) => {
           </div>
         )}
 
-        {currentImage &&
-          currentImage.trim() !== "" && (
-            <div className="current-image">
-              <img
-                src={currentImage}
-                alt="Uploaded"
-                className="max-w-xs max-h-32 object-cover rounded-lg border border-gray-300 shadow-sm"
-              />
-            </div>
-          )}
+        {currentImage && currentImage.trim() !== "" && (
+          <div className="current-image">
+            <img
+              src={currentImage}
+              alt="Uploaded"
+              className="max-w-xs max-h-32 object-cover rounded-lg border border-gray-300 shadow-sm"
+            />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -15,7 +15,6 @@ const FormFill = () => {
   const [error, setError] = useState(null);
   const [submitted, setSubmitted] = useState(false);
 
-  // Fetch form data on component mount
   useEffect(() => {
     fetchFormData();
   }, [id]);
@@ -86,7 +85,7 @@ const FormFill = () => {
           questionId, // This should match the question.id from the form
           answer,
         })),
-        // submittedBy can be added later when you implement user authentication
+        // submittedBy after user authentication
       };
 
       console.log("Submitting response:", responseData); // Debug log
@@ -104,7 +103,6 @@ const FormFill = () => {
     }
   };
 
-  // Check if answer is complete for validation
   const isAnswerComplete = (questionType, answer) => {
     switch (questionType) {
       case "categorize":
@@ -126,7 +124,6 @@ const FormFill = () => {
     }
   };
 
-  // Render question based on type
   const renderQuestion = (question, index) => {
     const commonProps = {
       question,
@@ -260,19 +257,23 @@ const FormFill = () => {
 
         {/* Form Header */}
         <div className="bg-white rounded-2xl shadow-xl overflow-hidden mb-8">
-          <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-12 text-center">
-            <h1 className="text-4xl font-bold text-white mb-4">
-              {formData.title}
-            </h1>
-            {formData.headerImage && (
-              <div className="mt-6 flex justify-center">
+          {/* 1. Banner image (optional) */}
+          {formData.headerImage && (
+            <div className="w-full overflow-hidden">
+              {/* 3 : 1 aspect ratio → change pt-[33%] for 2 : 1 (pt-[50%]) */}
+              <div className="relative pt-[33%]">
                 <img
                   src={formData.headerImage}
-                  alt="Form header"
-                  className="max-w-md max-h-48 object-cover rounded-lg shadow-lg border-4 border-white/20"
+                  alt="Form banner"
+                  className="absolute inset-0 h-full w-full object-cover"
                 />
               </div>
-            )}
+            </div>
+          )}
+
+          {/* 2. Title */}
+          <div className="px-8 py-12 text-center bg-gradient-to-r from-blue-400 to-indigo-500">
+            <h1 className="text-4xl font-bold text-white">{formData.title}</h1>
           </div>
         </div>
 
