@@ -5,6 +5,7 @@ import FormBuilder from "./components/FormBuilder/FormBuilder";
 import FormFill from "./components/FormFill/FormFill";
 import FormResponses from "./components/FormResponses/FormResponses";
 import FormPreview from "./components/FormBuilder/FormPreview";
+import MyForms from "./pages/MyForms";
 
 const appRouter = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const appRouter = createBrowserRouter([
       {
         path: "/builder",
         element: <FormBuilder />,
+      },
+      {
+        path: "/my-forms",
+        element: <MyForms />,
       },
       {
         path: "/form-fill/:id",

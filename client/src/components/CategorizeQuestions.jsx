@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Trash2, CirclePlus } from "lucide-react";
 
 const CategorizeQuestion = ({ question, onUpdate, onRemove }) => {
-  // Use optional chaining for safe access to question.content
+
   const content = question?.content || {
     questionText: "",
     categories: [],
@@ -12,7 +12,6 @@ const CategorizeQuestion = ({ question, onUpdate, onRemove }) => {
   const [newCategory, setNewCategory] = useState("");
   const [newItemText, setNewItemText] = useState("");
 
-  // Handlers for adding/removing categories
   const handleAddCategory = () => {
     if (newCategory.trim()) {
       const updatedCategories = [...content.categories, newCategory.trim()];
@@ -25,7 +24,6 @@ const CategorizeQuestion = ({ question, onUpdate, onRemove }) => {
     const updatedCategories = content.categories.filter(
       (cat) => cat !== categoryToRemove
     );
-    // Also remove items that belong to this category
     const updatedItems = content.items.filter(
       (item) => item.category !== categoryToRemove
     );
@@ -36,13 +34,12 @@ const CategorizeQuestion = ({ question, onUpdate, onRemove }) => {
     });
   };
 
-  // Handlers for adding/removing items
   const handleAddItem = () => {
     if (newItemText.trim()) {
       const newItem = {
         id: Date.now(),
         text: newItemText.trim(),
-        category: "", // Initially unassigned
+        category: "", 
       };
       const updatedItems = [...content.items, newItem];
       onUpdate({ ...content, items: updatedItems });
