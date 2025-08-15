@@ -100,19 +100,21 @@ REACT_APP_API_URL=http://localhost:5000/api
 
 ## 🛠 Project Structure
 
-formez-form-builder/
-├── client/ # React app
-│ └── src/
-│ ├── components/
-│ ├── pages/
-│ └── services/
-├── server/ # Express API
-│ ├── models/
-│ ├── routes/
-│ ├── middlewares/
-│ └── app.js
-└── README.md
 
+```plaintext
+formez-form-builder/
+├── client/                 # React app
+│   └── src/
+│       ├── components/
+│       ├── pages/
+│       └── services/
+├── server/                 # Express API
+│   ├── models/
+│   ├── routes/
+│   ├── middlewares/
+│   └── app.js
+└── README.md
+```
 
 ---
 
