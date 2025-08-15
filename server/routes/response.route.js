@@ -3,15 +3,10 @@ import { Response } from "../models/response.model.js";
 import { asyncHandler } from "../utils/AsyncHandler.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
-import mongoose from "mongoose"; // <-- ADD THIS LINE
+import mongoose from "mongoose";
 
 const router = express.Router();
 
-/**
- * @route   POST /api/responses
- * @desc    Saves a new user response to a form.
- * @access  Public
- */
 router.post(
   "/",
   asyncHandler(async (req, res) => {
@@ -39,25 +34,20 @@ router.post(
       throw new ApiError(500, "Failed to save the response. Please try again.");
     }
 
-    // 5. Respond with a standardized success message and the saved response document.
+    // 5. Respond with a success message and the saved response document.
     return res
       .status(201)
       .json(new ApiResponse(201, newResponse, "Response saved successfully."));
   })
 );
 
-/**
- * @route   GET /api/responses/:formId
- * @desc    Retrieves all responses for a specific form.
- * @access  Public (Can be restricted to authenticated users later)
- */
 router.get(
   "/:formId",
   asyncHandler(async (req, res) => {
-    // 1. Extract the form ID from the URL parameters.
+    // 1. Extract the form ID 
     const { formId } = req.params;
 
-    // 2. Validate ObjectId format - THIS LINE NEEDS MONGOOSE IMPORT
+    // 2. Validate ObjectId format
     if (!mongoose.Types.ObjectId.isValid(formId)) {
       throw new ApiError(400, "Invalid form ID format.");
     }
@@ -65,7 +55,7 @@ router.get(
     // 3. Find all responses in the database that match the formId.
     const responses = await Response.find({ formId }).sort({ createdAt: -1 });
 
-    // 4. If no responses are found, we return an empty array, which is a success case.
+    // 4. If no responses are found, return an empty array, which is a success case.
     if (!responses) {
       throw new ApiError(500, "Failed to retrieve responses.");
     }

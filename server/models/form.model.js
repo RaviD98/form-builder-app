@@ -1,36 +1,28 @@
 import mongoose from "mongoose";
 
-// A sub-schema for the content of a question.
-// 'strict: false' allows us to store different key-value pairs
-// for each question type (e.g., 'categories' for Categorize,
-// 'sentence' and 'options' for Cloze, 'passage' and 'mcqs' for Comprehension).
 const questionContentSchema = new mongoose.Schema(
   {},
   { _id: false, strict: false }
 );
 
-// The main schema for a question within the form.
 const questionSchema = new mongoose.Schema(
   {
     id: {
-      // Changed from 'questionId' to 'id' to match frontend
       type: String,
       required: [true, "Question ID is required"],
     },
     type: {
       type: String,
-      enum: ["categorize", "cloze", "comprehension"], // Changed to lowercase to match frontend
+      enum: ["categorize", "cloze", "comprehension"], 
       required: [true, "Question type is required"],
     },
     question: {
-      // Changed from 'content' to 'question' to match frontend
       type: String,
       required: [true, "Question text is required"],
     },
-    // Optional fields that can be present for different question types
     categories: {
       type: [String],
-      default: undefined, // Will only be saved if provided
+      default: undefined, 
     },
     items: {
       type: [String],
@@ -63,10 +55,9 @@ const questionSchema = new mongoose.Schema(
       default: "",
     },
   },
-  { _id: false } // We don't need a separate _id for each question
+  { _id: false } 
 );
 
-// The main Form schema
 const formSchema = new mongoose.Schema(
   {
     title: {
@@ -95,7 +86,6 @@ const formSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// The unique index is on createdBy, not formId
 formSchema.index({ createdBy: 1, createdAt: -1 });
 
 export const Form = mongoose.model("Form", formSchema);
