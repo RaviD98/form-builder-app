@@ -118,10 +118,20 @@ const FormBuilder = () => {
         setSavedFormId(formId);
         setIsFormSaved(true);
 
-        // Show success message instead of alert
-        setError(null);
+        // Save form info to localStorage for "My Forms" feature
+        const myForms = JSON.parse(
+          localStorage.getItem("myCreatedForms") || "[]"
+        );
+        const formInfo = {
+          id: formId,
+          title: formData.title,
+          questionCount: formData.questions.length,
+          createdAt: new Date().toISOString(),
+        };
+        myForms.push(formInfo);
+        localStorage.setItem("myCreatedForms", JSON.stringify(myForms));
 
-        // Optional: You can show a success toast/notification here
+        setError(null);
         console.log("Form saved successfully with ID:", formId);
       }
     } catch (err) {

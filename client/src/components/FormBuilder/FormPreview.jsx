@@ -8,6 +8,7 @@ const FormPreview = () => {
   const [formData, setFormData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     fetchFormData();
@@ -30,9 +31,24 @@ const FormPreview = () => {
     }
   };
 
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(
+        `${window.location.origin}/form-fill/${id}`
+      );
+      setCopied(true);
+      setTimeout(() => setCopied(false), 800); // Reset
+    } catch (err) {
+      console.error("Failed to copy link:", err);
+    }
+  };
+
   const renderQuestionPreview = (question, index) => {
     const baseContent = (
-      <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-200">
+      <div
+        key={question.id || index}
+        className="bg-white rounded-xl shadow-lg p-6 border border-gray-200"
+      >
         <div className="flex items-center space-x-3 mb-4">
           <span className="bg-blue-100 text-blue-800 rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">
             {index + 1}
@@ -55,12 +71,16 @@ const FormPreview = () => {
         {/* Question type specific preview */}
         {question.type === "categorize" && (
           <div className="space-y-4">
-            <p className="text-gray-600">
-              Categories: {question.categories?.join(", ") || "None"}
-            </p>
-            <p className="text-gray-600">
-              Items to categorize: {question.items?.join(", ") || "None"}
-            </p>
+            <div className="text-gray-700">
+              <p className="font-medium">
+                Categories: {question.categories?.join(", ") || "None"}
+              </p>
+            </div>
+            <div className="text-gray-700">
+              <p className="font-medium">
+                Items to categorize: {question.items?.join(", ") || "None"}
+              </p>
+            </div>
           </div>
         )}
 
@@ -68,7 +88,7 @@ const FormPreview = () => {
           <div className="space-y-4">
             <div className="bg-green-50 p-4 rounded-lg">
               <p className="font-medium text-green-800 mb-2">Sentence:</p>
-              <p className="font-mono text-green-900">
+              <p className="text-green-900">
                 {question.sentence || "Sentence with __ blanks"}
               </p>
             </div>
@@ -79,7 +99,7 @@ const FormPreview = () => {
               <div className="flex flex-wrap gap-2">
                 {question.options?.map((option, idx) => (
                   <span
-                    key={idx}
+                    key={`${question.id || index}-option-${idx}`}
                     className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm"
                   >
                     {option}
@@ -98,14 +118,17 @@ const FormPreview = () => {
               </p>
               <p className="text-purple-900 text-sm">
                 {question.passage
-                  ? question.passage.substring(0, 150) + "..."
+                  ? question.passage.substring(0, 200) + "..."
                   : "Reading passage will appear here"}
               </p>
             </div>
             <div>
               <p className="font-medium text-gray-700 mb-2">Questions:</p>
               {question.mcqs?.map((mcq, idx) => (
-                <div key={idx} className="bg-gray-50 p-3 rounded-lg mb-2">
+                <div
+                  key={`${question.id || index}-mcq-${idx}`}
+                  className="bg-gray-50 p-3 rounded-lg mb-2"
+                >
                   <p className="font-medium text-gray-900">
                     <strong>Q{idx + 1}:</strong>{" "}
                     {mcq.question || `Question ${idx + 1}`}
@@ -113,7 +136,9 @@ const FormPreview = () => {
                   <div className="mt-2 space-y-1">
                     {mcq.options?.map((option, optIdx) => (
                       <p
-                        key={optIdx}
+                        key={`${
+                          question.id || index
+                        }-mcq-${idx}-option-${optIdx}`}
                         className={`text-sm ${
                           optIdx === mcq.correct
                             ? "text-green-600 font-medium"
@@ -325,7 +350,7 @@ const FormPreview = () => {
           )}
         </div>
 
-        {/* Footer */}
+        {/* Footer with Copy Button */}
         <div className="text-center mt-8 space-y-4">
           <div className="bg-white rounded-lg p-6 shadow-lg">
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
@@ -334,10 +359,56 @@ const FormPreview = () => {
             <p className="text-gray-600 mb-4">
               Share this link with your audience:
             </p>
-            <div className="bg-gray-50 rounded-lg p-3 border border-gray-200">
-              <code className="text-sm text-blue-600 font-mono">
-                {`${window.location.origin}/form-fill/${id}`}
-              </code>
+            <div className="flex items-center justify-center space-x-3">
+              <div className="bg-gray-50 rounded-lg p-3 border border-gray-200 flex-1 max-w-lg">
+                <code className="text-sm text-blue-600 font-mono break-all">
+                  {`${window.location.origin}/form-fill/${id}`}
+                </code>
+              </div>
+              <button
+                onClick={handleCopyLink}
+                className={`px-4 py-3 rounded-lg transition duration-200 font-medium text-sm ${
+                  copied
+                    ? "bg-green-500 text-white"
+                    : "bg-blue-500 hover:bg-blue-600 text-white"
+                }`}
+              >
+                {copied ? (
+                  <>
+                    <svg
+                      className="h-4 w-4 mr-1 inline"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                    Copied!
+                  </>
+                ) : (
+                  <>
+                    <svg
+                      className="h-4 w-4 mr-1 inline"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                      />
+                    </svg>
+                    Copy
+                  </>
+                )}
+              </button>
             </div>
           </div>
         </div>
