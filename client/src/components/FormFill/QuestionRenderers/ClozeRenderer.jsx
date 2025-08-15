@@ -293,17 +293,6 @@ const ClozeRendererContent = ({
     return selectedOptions.filter((option) => option && option.trim() !== "");
   };
 
-  // Enhanced debug logging
-  console.log("ClozeRenderer render - FIXED:", {
-    selectedOptions,
-    blankCount,
-    sentence: getSentenceWithBlanks(),
-    questionFields: Object.keys(question),
-    questionSentence: question.sentence,
-    questionQuestion: question.question,
-    options: question.options,
-  });
-
   return (
     <div className="bg-white border-2 border-green-200 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
       {/* Question Header */}
@@ -335,14 +324,14 @@ const ClozeRendererContent = ({
 
       <div className="p-6">
         {/* Enhanced Debug Info */}
-        <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded text-sm">
+        {/* <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded text-sm">
           <strong>Debug Info:</strong>
           <br />- Sentence: "{getSentenceWithBlanks()}"<br />- Blank Count:{" "}
           {blankCount}
           <br />- Selected: [{selectedOptions.join(", ")}]<br />- Available
           Options: [{(question.options || []).join(", ")}]<br />- Question
           Fields: [{Object.keys(question).join(", ")}]
-        </div>
+        </div> */}
 
         {/* Show error if no blanks found */}
         {blankCount === 0 && (
