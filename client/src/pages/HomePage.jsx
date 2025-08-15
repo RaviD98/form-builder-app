@@ -54,7 +54,7 @@ const HomePage = () => {
               <div className="mt-18 space-y-4 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center lg:justify-start">
                 <button
                   onClick={handleCreateForm}
-                  className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 md:py-4 md:text-lg md:px-10 transition duration-200 transform hover:scale-105 shadow-lg"
+                  className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 md:py-4 md:text-lg md:px-10 transition duration-200 transform hover:scale-105 shadow-lg cursor-pointer"
                 >
                   <svg
                     className="h-5 w-5 mr-2"
@@ -75,7 +75,7 @@ const HomePage = () => {
                 {/* My Forms button*/}
                 <button
                   onClick={handleMyForms}
-                  className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3 border-2 border-blue-600 text-base font-medium rounded-lg text-blue-600 bg-white hover:bg-blue-50 hover:border-blue-700 md:py-4 md:text-lg md:px-10 transition duration-200 transform hover:scale-105 shadow-md"
+                  className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3 border-2 border-blue-600 text-base font-medium rounded-lg text-blue-600 bg-white hover:bg-blue-50 hover:border-blue-700 md:py-4 md:text-lg md:px-10 transition duration-200 transform hover:scale-105 shadow-md cursor-pointer"
                 >
                   <svg
                     className="h-5 w-5 mr-2"
@@ -379,7 +379,7 @@ const HomePage = () => {
           </p>
           <button
             onClick={handleCreateForm}
-            className="inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-lg text-blue-600 bg-white hover:bg-gray-50 transition duration-200 transform hover:scale-105 shadow-lg"
+            className="inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-lg text-blue-600 bg-white hover:bg-gray-50 transition duration-200 transform hover:scale-105 shadow-lg cursor-pointer"
           >
             <svg
               className="h-6 w-6 mr-2"

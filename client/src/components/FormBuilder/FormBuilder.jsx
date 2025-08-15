@@ -13,10 +13,10 @@ const FormBuilder = () => {
     questions: [],
   });
   const [loading, setLoading] = useState(false);
-  const [saving, setSaving] = useState(false); // New state for saving
+  const [saving, setSaving] = useState(false); 
   const [error, setError] = useState(null);
-  const [savedFormId, setSavedFormId] = useState(null); // Track saved form ID
-  const [isFormSaved, setIsFormSaved] = useState(false); // Track if form is saved
+  const [savedFormId, setSavedFormId] = useState(null); 
+  const [isFormSaved, setIsFormSaved] = useState(false); 
   const navigate = useNavigate();
 
   // Add new question
@@ -32,12 +32,10 @@ const FormBuilder = () => {
       questions: [...prev.questions, newQuestion],
     }));
 
-    // Reset saved state when form is modified
     setIsFormSaved(false);
     setSavedFormId(null);
   };
 
-  // Get default data structure for each question type
   const getDefaultQuestionData = (type) => {
     switch (type) {
       case "categorize":
@@ -90,12 +88,10 @@ const FormBuilder = () => {
       questions: prev.questions.filter((q) => q.id !== questionId),
     }));
 
-    // Reset saved state when form is modified
     setIsFormSaved(false);
     setSavedFormId(null);
   };
 
-  // Handle form submission - UPDATED VERSION
   const handleSubmit = async () => {
     try {
       setSaving(true);
@@ -118,7 +114,6 @@ const FormBuilder = () => {
         setSavedFormId(formId);
         setIsFormSaved(true);
 
-        // Save form info to localStorage for "My Forms" feature
         const myForms = JSON.parse(
           localStorage.getItem("myCreatedForms") || "[]"
         );
@@ -275,11 +270,11 @@ const FormBuilder = () => {
             </div>
 
             {/* Header Image Upload Section */}
-            <div className="mb-8">
+            <div className="mb-8 cursor-pointer">
               <label className="block text-sm font-semibold text-gray-700 mb-3">
                 Header Image (Optional)
               </label>
-              <div className="bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg p-6 hover:border-gray-400 transition duration-200">
+              <div className="bg-gray-50 border-2 border-dashed border-gray-300 rounded-lg cursor-pointer p-6 hover:border-gray-400 transition duration-200">
                 <ImageUpload
                   onUpload={handleHeaderImageUpload}
                   currentImage={formData.headerImage}
@@ -335,7 +330,7 @@ const FormBuilder = () => {
                   <button
                     type="button"
                     onClick={() => addQuestion("categorize")}
-                    className="group relative bg-white hover:bg-blue-50 border-2 border-blue-200 hover:border-blue-300 rounded-lg p-4 text-center transition duration-200 transform hover:scale-105 hover:shadow-lg"
+                    className="group relative bg-white hover:bg-blue-50 border-2 border-blue-200 hover:border-blue-300 rounded-lg p-4 text-center transition duration-200 transform hover:scale-105 hover:shadow-lg cursor-pointer"
                   >
                     <div className="mx-auto h-8 w-8 text-blue-600 mb-2">
                       <svg
@@ -362,7 +357,7 @@ const FormBuilder = () => {
                   <button
                     type="button"
                     onClick={() => addQuestion("cloze")}
-                    className="group relative bg-white hover:bg-green-50 border-2 border-green-200 hover:border-green-300 rounded-lg p-4 text-center transition duration-200 transform hover:scale-105 hover:shadow-lg"
+                    className="group relative bg-white hover:bg-green-50 border-2 border-green-200 hover:border-green-300 rounded-lg p-4 text-center transition duration-200 transform hover:scale-105 hover:shadow-lg cursor-pointer"
                   >
                     <div className="mx-auto h-8 w-8 text-green-600 mb-2">
                       <svg
@@ -387,7 +382,7 @@ const FormBuilder = () => {
                   <button
                     type="button"
                     onClick={() => addQuestion("comprehension")}
-                    className="group relative bg-white hover:bg-purple-50 border-2 border-purple-200 hover:border-purple-300 rounded-lg p-4 text-center transition duration-200 transform hover:scale-105 hover:shadow-lg"
+                    className="group relative bg-white hover:bg-purple-50 border-2 border-purple-200 hover:border-purple-300 rounded-lg p-4 text-center transition duration-200 transform hover:scale-105 hover:shadow-lg cursor-pointer"
                   >
                     <div className="mx-auto h-8 w-8 text-purple-600 mb-2">
                       <svg
@@ -425,7 +420,7 @@ const FormBuilder = () => {
                       ? "bg-gray-400 cursor-not-allowed text-white"
                       : isFormSaved
                       ? "bg-green-600 text-white cursor-default"
-                      : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl hover:scale-105"
+                      : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl hover:scale-105 cursor-pointer"
                   }
                   focus:outline-none focus:ring-4 focus:ring-blue-300
                 `}
@@ -464,11 +459,11 @@ const FormBuilder = () => {
                 onClick={handlePreview}
                 disabled={!isFormSaved}
                 className={`
-                  relative px-8 py-4 text-lg font-semibold rounded-lg transition duration-200 transform
+                  relative px-8 py-4 text-lg font-semibold rounded-lg transition duration-200 transform 
                   ${
                     !isFormSaved
                       ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                      : "bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white shadow-lg hover:shadow-xl hover:scale-105"
+                      : "bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white shadow-lg hover:shadow-xl hover:scale-105 cursor-pointer"
                   }
                   focus:outline-none focus:ring-4 focus:ring-green-300
                 `}

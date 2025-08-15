@@ -29,7 +29,7 @@ const appRouter = createBrowserRouter([
         element: <FormFill />,
       },
       {
-        path: "/form-preview/:id", // NEW: Preview route
+        path: "/form-preview/:id",
         element: <FormPreview />,
       },
       {

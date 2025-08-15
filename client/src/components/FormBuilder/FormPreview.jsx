@@ -237,7 +237,7 @@ const FormPreview = () => {
             {/* Back to Builder Button */}
             <button
               onClick={() => navigate("/builder")}
-              className="absolute top-4 left-4 bg-white/20 hover:bg-white/30 text-white p-2 rounded-lg transition duration-200"
+              className="absolute top-4 left-4 bg-white/20 hover:bg-white/30 text-white p-2 rounded-lg transition duration-200 cursor-pointer"
             >
               <svg
                 className="h-5 w-5"
@@ -257,7 +257,7 @@ const FormPreview = () => {
             {/* Go to Live Form Button */}
             <button
               onClick={() => navigate(`/form-fill/${id}`)}
-              className="absolute top-4 right-4 bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50 transition duration-200 font-medium"
+              className="absolute top-4 right-4 bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50 transition duration-200 font-medium cursor-pointer"
             >
               View Live Form
             </button>
@@ -367,7 +367,7 @@ const FormPreview = () => {
               </div>
               <button
                 onClick={handleCopyLink}
-                className={`px-4 py-3 rounded-lg transition duration-200 font-medium text-sm ${
+                className={`px-4 py-3 rounded-lg transition duration-200 font-medium text-sm cursor-pointer ${
                   copied
                     ? "bg-green-500 text-white"
                     : "bg-blue-500 hover:bg-blue-600 text-white"

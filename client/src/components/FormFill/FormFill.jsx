@@ -316,7 +316,7 @@ const FormFill = () => {
                 ${
                   submitting
                     ? "bg-gray-400 cursor-not-allowed text-white"
-                    : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl hover:scale-105"
+                    : "bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white shadow-lg hover:shadow-xl hover:scale-105 cursor-pointer"
                 }
                 focus:outline-none focus:ring-4 focus:ring-blue-300
               `}
