@@ -3,6 +3,7 @@ import { Response } from "../models/response.model.js";
 import { asyncHandler } from "../utils/AsyncHandler.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
+import mongoose from "mongoose"; // <-- ADD THIS LINE
 
 const router = express.Router();
 
@@ -18,7 +19,6 @@ router.post(
     const { formId, answers, submittedBy } = req.body;
 
     // 2. Perform validation to ensure essential data is present.
-    // The Mongoose schema will handle more detailed validation on the data types.
     if (!formId) {
       throw new ApiError(400, "Form ID is required for the response.");
     }
@@ -57,24 +57,29 @@ router.get(
     // 1. Extract the form ID from the URL parameters.
     const { formId } = req.params;
 
-    // 2. Find all responses in the database that match the formId.
-    // We use .find() to get all matching documents, not just one.
-    const responses = await Response.find({ formId });
+    // 2. Validate ObjectId format - THIS LINE NEEDS MONGOOSE IMPORT
+    if (!mongoose.Types.ObjectId.isValid(formId)) {
+      throw new ApiError(400, "Invalid form ID format.");
+    }
 
-    // 3. If no responses are found, we return an empty array, which is a success case.
-    // We don't throw an error because it's valid for a form to have no responses yet.
+    // 3. Find all responses in the database that match the formId.
+    const responses = await Response.find({ formId }).sort({ createdAt: -1 });
+
+    // 4. If no responses are found, we return an empty array, which is a success case.
     if (!responses) {
       throw new ApiError(500, "Failed to retrieve responses.");
     }
 
-    // 4. Respond with a success message and the array of responses.
+    // 5. Respond with a success message and the array of responses.
     return res
       .status(200)
       .json(
         new ApiResponse(
           200,
           responses,
-          "Responses retrieved successfully."
+          responses.length > 0
+            ? `Found ${responses.length} responses.`
+            : "No responses found for this form."
         )
       );
   })
