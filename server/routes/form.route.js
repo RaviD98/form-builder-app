@@ -6,19 +6,13 @@ import { ApiError } from "../utils/ApiError.js";
 
 const router = express.Router();
 
-/**
- * @route   POST /api/forms
- * @desc    Creates a new form in the database.
- * @access  Public (for now)
- */
+
 router.post(
   "/",
   asyncHandler(async (req, res) => {
-    // 1. Extract and validate required fields from the request body.
+    // 1. Extract and validate required fields 
     const { title, headerImage, questions, createdBy } = req.body;
 
-    // A simple check to ensure essential data is present.
-    // The Mongoose schema will handle more detailed validation.
     if (!title || !questions || questions.length === 0) {
       throw new ApiError(400, "Title and at least one question are required.");
     }
@@ -36,18 +30,14 @@ router.post(
       throw new ApiError(500, "Failed to create the form. Please try again.");
     }
 
-    // 4. Respond with a standardized success message and the created form document.
+    // 4. Respond with a success message and the created form document.
     return res
       .status(201)
       .json(new ApiResponse(201, newForm, "Form created successfully."));
   })
 );
 
-/**
- * @route   GET /api/forms/:id
- * @desc    Retrieves a single form by its unique ID.
- * @access  Public
- */
+
 router.get(
   "/:id",
   asyncHandler(async (req, res) => {
