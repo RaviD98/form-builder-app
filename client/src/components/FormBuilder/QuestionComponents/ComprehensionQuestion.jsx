@@ -2,7 +2,7 @@ import ImageUpload from "../../common/ImageUpload";
 import { formAPI } from "../../../services/api";
 
 const ComprehensionQuestion = ({ question, onUpdate, onRemove }) => {
-  // Add safety checks and default values
+
   const mcqs = question.mcqs || [
     { question: "", options: ["", "", "", ""], correct: 0 },
   ];

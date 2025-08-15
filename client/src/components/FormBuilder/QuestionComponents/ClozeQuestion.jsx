@@ -1,4 +1,3 @@
-import React from "react";
 import ImageUpload from "../../common/ImageUpload";
 import { formAPI } from "../../../services/api";
 
